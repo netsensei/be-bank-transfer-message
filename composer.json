@@ -1,6 +1,6 @@
 {
     "name": "netsensei/be-bank-transfer-message",
-    "description": "Generate and valide Belgian bank transfer structured messages",
+    "description": "Generate and validate Belgian bank transfer structured messages",
     "keywords": [
         "netsensei",
         "be-bank-transfer-message",
