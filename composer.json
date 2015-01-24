@@ -1,0 +1,39 @@
+{
+    "name": "colada/be-bank-transfer-message",
+    "description": "Generate and valide Belgian structur transfer messages",
+    "keywords": [
+        "league",
+        ":package_name"
+    ],
+    "homepage": "https://github.com/thephpleague/:package_name",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthias Vandermaesen",
+            "email": "matthias@colada.be",
+            "homepage": "http://www.colada.be",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : ">=5.3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Colada\\BeBankTransferMessage\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Colada\\BeBankTransferMessage\\Test\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
