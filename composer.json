@@ -1,11 +1,13 @@
 {
     "name": "colada/be-bank-transfer-message",
-    "description": "Generate and valide Belgian structur transfer messages",
+    "description": "Generate and valide Belgian bank transfer structured messages",
     "keywords": [
-        "league",
-        ":package_name"
+        "netsensei",
+        "be-bank-transfer-message",
+        "finance",
+        "belgium"
     ],
-    "homepage": "https://github.com/thephpleague/:package_name",
+    "homepage": "https://github.com/netsensei/be-bank-transfer-message",
     "license": "MIT",
     "authors": [
         {
@@ -23,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Colada\\BeBankTransferMessage\\": "src"
+            "Netsensei\\BeBankTransferMessage\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Colada\\BeBankTransferMessage\\Test\\": "tests"
+            "Netsensei\\BeBankTransferMessage\\Test\\": "tests"
         }
     },
     "extra": {

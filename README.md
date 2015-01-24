@@ -14,14 +14,12 @@ This package contains a validator and generator for structured messages included
 Via Composer
 
 ``` bash
-$ composer require colada/be-bank-transfer-message
+$ composer require netsensei/be-bank-transfer-message
 ```
 
 ## Usage
 
 ### Generate a structured message
-
-Based on a random number
 
 Generate a structured message based on a predefined number. If you don't pass a number to the constructor, a random number will be generated.
 

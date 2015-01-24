@@ -1,9 +1,9 @@
 <?php
 
-namespace Colada\BeBankTransferMessage\Test;
+namespace Netsensei\BeBankTransferMessage\Test;
 
-use Colada\BeBankTransferMessage\TransferMessage;
-use Colada\BeBankTransferMessage\Exception\TransferMessageException;
+use Netsensei\BeBankTransferMessage\TransferMessage;
+use Netsensei\BeBankTransferMessage\Exception\TransferMessageException;
 
 class TransferMessageTest extends \PHPUnit_Framework_TestCase
 {

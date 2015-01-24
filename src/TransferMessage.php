@@ -1,8 +1,8 @@
 <?php
 
-namespace Colada\BeBankTransferMessage;
+namespace Netsensei\BeBankTransferMessage;
 
-use Colada\BeBankTransferMessage\Exception\TransferMessageException;
+use Netsensei\BeBankTransferMessage\Exception\TransferMessageException;
 
 class TransferMessage
 {
