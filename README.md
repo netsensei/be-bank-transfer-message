@@ -24,7 +24,7 @@ $ composer require netsensei/be-bank-transfer-message
 Generate a structured message based on a predefined number. If you don't pass a number to the constructor, a random number will be generated.
 
 ``` php
-$transferMessage = new Colada\BeBankTransferMessage\TransferMessage(12345);
+$transferMessage = new Netsensei\BeBankTransferMessage\TransferMessage(12345);
 $transferMessage->generate();
 echo transferMessage->getStructuredMessage();
 ```

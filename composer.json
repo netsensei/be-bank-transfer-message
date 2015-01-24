@@ -1,5 +1,5 @@
 {
-    "name": "colada/be-bank-transfer-message",
+    "name": "netsensei/be-bank-transfer-message",
     "description": "Generate and valide Belgian bank transfer structured messages",
     "keywords": [
         "netsensei",
