@@ -7,7 +7,12 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/thephpleague/:package_name.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/:package_name)
 [![Total Downloads](https://img.shields.io/packagist/dt/netsensei/be-bank-transfer-message.svg?style=flat-square)](https://packagist.org/packages/netsensei/be-bank-transfer-message)
 
-This package contains a validator and generator for structured messages included in Belgian bank transfers.
+This package contains a validator and generator for structured messages included in Belgian bank transfers. Common use cases:
+
+* Automatic generation of order invoices.
+* Association of payment provider messages to orders stored in your application.
+
+The structured message format adheres to the [Febelfin Guidelines](https://www.febelfin.be/sites/default/files/files/dw-formulier_euro2.pdf)
 
 ## Install
 
@@ -21,21 +26,55 @@ $ composer require netsensei/be-bank-transfer-message
 
 ### Generate a structured message
 
-Generate a structured message based on a predefined number. If you don't pass a number to the constructor, a random number will be generated.
+Based on a random number
+
+``` php
+$transferMessage = new Netsensei\BeBankTransferMessage\TransferMessage();
+echo transferMessage->getStructuredMessage();
+```
+
+Based on a predefined number
 
 ``` php
 $transferMessage = new Netsensei\BeBankTransferMessage\TransferMessage(12345);
-$transferMessage->generate();
 echo transferMessage->getStructuredMessage();
 ```
 
-Set a new number on a generate again. If you don't pass a new number, a random number will be generated.
+Change to a different predefined number
 
 ``` php
-$transferMessage->setNumber(54321)
+$transferMessage->setNumber(54321);
 $transferMessage->generate();
 echo transferMessage->getStructuredMessage();
 ```
+
+Or a random number
+
+``` php
+$transferMessage->setNumber();
+$transferMessage->generate();
+echo transferMessage->getStructuredMessage();
+```
+
+### Validate a structured message
+
+A valid message
+
+``` php
+$transferMessage = new Netsensei\BeBankTransferMessage\TransferMessage();
+$transferMessage->setStructuredMessage('+++090/9337/55493+++');
+$result = $transferMessage->validate();  // TRUE
+```
+
+An invalid message
+
+``` php
+$transferMessage = new Netsensei\BeBankTransferMessage\TransferMessage();
+$transferMessage->setStructuredMessage('+++011/9337/55493+++');
+$result = $transferMessage->validate();  // FALSE
+```
+
+Additionally the setter method will throw an ```TransferMessageException()``` if the format of the structured message is not valid.
 
 ## Testing
 
