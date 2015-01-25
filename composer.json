@@ -5,7 +5,12 @@
         "netsensei",
         "be-bank-transfer-message",
         "finance",
-        "belgium"
+        "belgium",
+        "bank",
+        "invoice",
+        "commerce",
+        "order",
+        "payment"
     ],
     "homepage": "https://github.com/netsensei/be-bank-transfer-message",
     "license": "MIT",
@@ -14,7 +19,7 @@
             "name": "Matthias Vandermaesen",
             "email": "matthias@colada.be",
             "homepage": "http://www.colada.be",
-            "role": "Developer"
+            "role": "lead"
         }
     ],
     "require": {
