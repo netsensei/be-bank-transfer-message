@@ -1,30 +1,79 @@
 <?php
 
+/**
+* This file is part of the netsensei.bebanktransfermessage library
+*
+* @license http://opensource.org/licenses/MIT
+* @link https://github.com/netsensei/be-bank-transfer-message/
+* @version 1.0.0
+* @package netsensei.bebanktransfermessage
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
+
 namespace Netsensei\BeBankTransferMessage;
 
 use Netsensei\BeBankTransferMessage\Exception\TransferMessageException;
 
 class TransferMessage
 {
-
+    /**
+     * Set divisor used to calculate the modulus
+     */
     const MODULO = 97;
 
+    /**
+     * Set the asterisk sign as a circumfix
+     */
     const CIRCUMFIX_ASTERISK = "*";
 
+    /**
+     * Set the plus sign as a circumfix
+     */
     const CIRCUMFIX_PLUS = "+";
 
+    /**
+     * The number used to generate a structured message
+     *
+     * @var int
+     */
     private $number;
 
+    /**
+     * The modulus resulting from the modulo operation
+     *
+     * @var int
+     */
     private $modulus;
 
+    /**
+     * A structured message with a valid formatting
+     *
+     * @var int
+     */
     private $structuredMessage = null;
 
+    /**
+     * Create a new instance
+     *
+     * @param int $number The number used to generate a structured message
+     */
     public function __construct($number = null)
     {
         $this->setNumber($number);
         $this->generate();
     }
 
+    /**
+     * Set the number
+     *
+     * If no number is passed to this method, a random number will be generated
+     *
+     * @param int $number The number used to generate a structured message
+     *
+     * @throws \TransferMessageException If the number is out of bounds
+     */
     public function setNumber($number = null)
     {
         try {
@@ -42,16 +91,33 @@ class TransferMessage
         }
     }
 
+    /**
+     * Get the number
+     *
+     * @return int The number used to generate a structured message
+     */
     public function getNumber()
     {
         return $this->number;
     }
 
+    /**
+     * Get the modulus
+     *
+     * @return int The modulus resulting from the modulo operation
+     */
     public function getModulus()
     {
         return $this->modulus;
     }
 
+    /**
+     * Set a structured message
+     *
+     * @param string $structuredMessage A structured message
+     *
+     * @throws  \TransferMessageException If the format is not valid
+     */
     public function setStructuredMessage($structuredMessage)
     {
         try {
@@ -66,11 +132,22 @@ class TransferMessage
         }
     }
 
+    /**
+     * Get the structured message
+     *
+     * @return string A valid formatted structured message
+     */
     public function getStructuredMessage()
     {
         return $this->structuredMessage;
     }
 
+    /**
+     * Generate a valid structured message based on the number
+     *
+     * @param  string $circumfix The circumfix. Defaults to the plus sign
+     * @return string            A valid structured message
+     */
     public function generate($circumfix = self::CIRCUMFIX_PLUS)
     {
         $this->modulus = $this->mod($this->number);
@@ -82,6 +159,14 @@ class TransferMessage
         $this->structuredMessage = preg_replace($pattern, $replace, $structuredMessage);
     }
 
+    /**
+     * Validates a structured message
+     *
+     * The validation is the mod97 calculation of the number and comparison of
+     * the result to the provided modulus.
+     *
+     * @return bool TRUE if valid, FALSE if invalid
+     */
     public function validate()
     {
         $pattern = array('/^[\+\*]{3}([0-9]{3})[\/]?([0-9]{4})[\/]?([0-9]{5})[\+\*]{3}$/');
@@ -94,6 +179,14 @@ class TransferMessage
         return ($modulus == $this->mod($number)) ? true : false;
     }
 
+    /**
+     * The mod97 calculation
+     *
+     * If the modulus is 0, the result is substituted to 97
+     *
+     * @param  int $dividend The dividend
+     * @return int           The modulus
+     */
     private function mod($dividend)
     {
         $modulus = $dividend % self::MODULO;

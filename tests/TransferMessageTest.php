@@ -7,7 +7,7 @@ use Netsensei\BeBankTransferMessage\Exception\TransferMessageException;
 
 class TransferMessageTest extends \PHPUnit_Framework_TestCase
 {
-
+    /** @test */
     public function testNumberSetterNotAnInt()
     {
         $transferMessage = new TransferMessage();
@@ -27,6 +27,7 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $this->markTestIncomplete('This test should have thrown an exception');
     }
 
+    /** @test */
     public function testNumberSetterOutOfLowerBound()
     {
         $transferMessage = new TransferMessage();
@@ -47,6 +48,7 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $this->markTestIncomplete('This test should have thrown an exception');
     }
 
+    /** @test */
     public function testNumberSetterOutofUpperBound()
     {
         $transferMessage = new TransferMessage();
@@ -68,6 +70,7 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $this->markTestIncomplete('This test should have thrown an exception');
     }
 
+    /** @test */
     public function testModulusGetter()
     {
         $transferMessage = new TransferMessage(119698);
@@ -82,6 +85,7 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(72, $modulus);
     }
 
+    /** @test */
     public function testNumberGetter()
     {
         $expectedNumber = 119698;
@@ -91,6 +95,7 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedNumber, $actual);
     }
 
+    /** @test */
     public function testGeneratedMessageFormat()
     {
         $pattern = '/^[\+\*]{3}[0-9]{3}[\/]?[0-9]{4}[\/]?[0-9]{5}[\+\*]{3}$/';
@@ -110,6 +115,7 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertRegexp($pattern, $structuredMessage);
     }
 
+    /** @test */
     public function testStructuredMessageSetterInvalidInput()
     {
         $transferMessage = new TransferMessage();
@@ -130,6 +136,7 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $this->markTestIncomplete('This test should have thrown an exception');
     }
 
+    /** @test */
     public function testValidateStructuredMessage()
     {
         // Number with carry > 0
