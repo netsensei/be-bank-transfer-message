@@ -91,6 +91,31 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $transferMessage->generate();
         $carry = $transferMessage->getCarry();
 
-        $this->assertEquals($transferMessage::MOD_BE_BANK_TRANSFER_MESSAGE, $carry);
+        $this->assertEquals(TransferMessage::MODULO, $carry);
+    }
+
+    public function testCarryGetterIsModNonZeroException() {
+        $transferMessage = new TransferMessage(123456);
+        $transferMessage->generate();
+        $carry = $transferMessage->getCarry();
+
+        $this->assertEquals(72, $carry);
+    }
+
+    public function testGeneratedMessageFormat() {
+        $transferMessage = new TransferMessage();
+        $transferMessage->generate();
+        $structuredMessage = $transferMessage->getStructuredMessage();
+
+        $pattern = '/^[\+\*]{3}[0-9]{3}[\/]?[0-9]{4}[\/]?[0-9]{5}[\+\*]{3}$/';
+        $this->assertRegexp($pattern, $structuredMessage);
+
+        $structuredMessage = $transferMessage->getStructuredMessage(TransferMessage::CIRCUMFIX_ASTERISK);
+        $this->assertRegexp($pattern, $structuredMessage);
+
+        $transferMessage->setNumber(1);
+        $transferMessage->generate();
+        $structuredMessage = $transferMessage->getStructuredMessage();
+        $this->assertRegexp($pattern, $structuredMessage);
     }
 }

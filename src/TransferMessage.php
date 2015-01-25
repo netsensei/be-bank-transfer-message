@@ -7,7 +7,11 @@ use Netsensei\BeBankTransferMessage\Exception\TransferMessageException;
 class TransferMessage
 {
 
-    const MOD_BE_BANK_TRANSFER_MESSAGE = 97;
+    const MODULO = 97;
+
+    const CIRCUMFIX_ASTERISK = "*";
+
+    const CIRCUMFIX_PLUS = "+";
 
     private $number;
 
@@ -50,14 +54,14 @@ class TransferMessage
         return $this->structuredMessage;
     }
 
-    public function generate() {
-        $carry = $this->number % self::MOD_BE_BANK_TRANSFER_MESSAGE;
-        $this->carry = ($carry > 0) ? $carry : self::MOD_BE_BANK_TRANSFER_MESSAGE;
+    public function generate($circumfix = self::CIRCUMFIX_PLUS) {
+        $carry = $this->number % self::MODULO;
+        $this->carry = ($carry > 0) ? $carry : self::MODULO;
 
-        $structuredMessage = str_pad($this->number, 10, STR_PAD_LEFT) . str_pad($carry, 2, STR_PAD_LEFT);
+        $structuredMessage = str_pad($this->number, 10, 0, STR_PAD_LEFT) . str_pad($carry, 2, 0, STR_PAD_LEFT);
 
         $pattern = array('/^([0-9]{3})([0-9]{4})([0-9]{5})$/');
-        $replace = array('+++$1/$2/$3+++');
+        $replace = array(str_pad('$1/$2/$3', 14, $circumfix, STR_PAD_BOTH));
         $this->structuredMessage = preg_replace($pattern, $replace, $structuredMessage);
     }
 }
