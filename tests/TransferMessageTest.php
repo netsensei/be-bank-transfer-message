@@ -8,7 +8,8 @@ use Netsensei\BeBankTransferMessage\Exception\TransferMessageException;
 class TransferMessageTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testNumberSetterNotAnInt() {
+    public function testNumberSetterNotAnInt()
+    {
         $transferMessage = new TransferMessage();
         try {
             $transferMessage->setNumber('abcd');
@@ -26,7 +27,8 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $this->markTestIncomplete('This test should have thrown an exception');
     }
 
-    public function testNumberSetterOutOfLowerBound() {
+    public function testNumberSetterOutOfLowerBound()
+    {
         $transferMessage = new TransferMessage();
         try {
             $number = 0;
@@ -45,7 +47,8 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $this->markTestIncomplete('This test should have thrown an exception');
     }
 
-    public function testNumberSetterOutofUpperBound() {
+    public function testNumberSetterOutofUpperBound()
+    {
         $transferMessage = new TransferMessage();
         $number = 10000000000;
         try {
@@ -65,7 +68,8 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $this->markTestIncomplete('This test should have thrown an exception');
     }
 
-    public function testModulusGetter() {
+    public function testModulusGetter()
+    {
         $transferMessage = new TransferMessage(119698);
         $modulus = $transferMessage->getModulus();
 
@@ -78,7 +82,8 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(72, $modulus);
     }
 
-    public function testNumberGetter() {
+    public function testNumberGetter()
+    {
         $expectedNumber = 119698;
         $transferMessage = new TransferMessage($expectedNumber);
         $actual = $transferMessage->getNumber();
@@ -86,7 +91,8 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedNumber, $actual);
     }
 
-    public function testGeneratedMessageFormat() {
+    public function testGeneratedMessageFormat()
+    {
         $pattern = '/^[\+\*]{3}[0-9]{3}[\/]?[0-9]{4}[\/]?[0-9]{5}[\+\*]{3}$/';
 
         $transferMessage = new TransferMessage();
@@ -104,7 +110,8 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertRegexp($pattern, $structuredMessage);
     }
 
-    public function testStructuredMessageSetterInvalidInput() {
+    public function testStructuredMessageSetterInvalidInput()
+    {
         $transferMessage = new TransferMessage();
 
         try {
@@ -123,7 +130,8 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $this->markTestIncomplete('This test should have thrown an exception');
     }
 
-    public function testValidateStructuredMessage() {
+    public function testValidateStructuredMessage()
+    {
         // Number with carry > 0
         $transferMessage = new TransferMessage(123456);
         $result = $transferMessage->validate();

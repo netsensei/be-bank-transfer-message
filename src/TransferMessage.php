@@ -17,14 +17,16 @@ class TransferMessage
 
     private $modulus;
 
-    private $structuredMessage = NULL;
+    private $structuredMessage = null;
 
-    public function __construct($number = NULL) {
+    public function __construct($number = null)
+    {
         $this->setNumber($number);
         $this->generate();
     }
 
-    public function setNumber($number = NULL) {
+    public function setNumber($number = null)
+    {
         try {
             if (is_null($number)) {
                 $this->number = mt_rand(1, 9999999999);
@@ -34,21 +36,24 @@ class TransferMessage
                 }
 
                 $this->number = $number;
-           }
+            }
         } catch (\Exception $e) {
             throw new TransferMessageException('Failed to set number', null, $e);
         }
     }
 
-    public function getNumber() {
+    public function getNumber()
+    {
         return $this->number;
     }
 
-    public function getModulus() {
+    public function getModulus()
+    {
         return $this->modulus;
     }
 
-    public function setStructuredMessage($structuredMessage) {
+    public function setStructuredMessage($structuredMessage)
+    {
         try {
             $pattern = '/^[\+\*]{3}[0-9]{3}[\/]?[0-9]{4}[\/]?[0-9]{5}[\+\*]{3}$/';
             if (preg_match($pattern, $structuredMessage) === 0) {
@@ -61,21 +66,24 @@ class TransferMessage
         }
     }
 
-    public function getStructuredMessage() {
+    public function getStructuredMessage()
+    {
         return $this->structuredMessage;
     }
 
-    public function generate($circumfix = self::CIRCUMFIX_PLUS) {
+    public function generate($circumfix = self::CIRCUMFIX_PLUS)
+    {
         $this->modulus = $this->mod($this->number);
 
-        $structuredMessage = str_pad($this->number, 10, 0, STR_PAD_LEFT) . str_pad($this->modulus, 2, 0, STR_PAD_LEFT);
+        $structuredMessage = str_pad($this->number, 10, 0, STR_PAD_LEFT).str_pad($this->modulus, 2, 0, STR_PAD_LEFT);
 
         $pattern = array('/^([0-9]{3})([0-9]{4})([0-9]{5})$/');
         $replace = array(str_pad('$1/$2/$3', 14, $circumfix, STR_PAD_BOTH));
         $this->structuredMessage = preg_replace($pattern, $replace, $structuredMessage);
     }
 
-    public function validate() {
+    public function validate()
+    {
         $pattern = array('/^[\+\*]{3}([0-9]{3})[\/]?([0-9]{4})[\/]?([0-9]{5})[\+\*]{3}$/');
         $replace = array('${1}${2}${3}');
         $rawStructuredMessage = preg_replace($pattern, $replace, $this->structuredMessage);
@@ -83,11 +91,13 @@ class TransferMessage
         $number = substr($rawStructuredMessage, 0, 10);
         $modulus = substr($rawStructuredMessage, 10, 2);
 
-        return ($modulus == $this->mod($number)) ? TRUE : FALSE;
+        return ($modulus == $this->mod($number)) ? true : false;
     }
 
-    private function mod($dividend) {
+    private function mod($dividend)
+    {
         $modulus = $dividend % self::MODULO;
+
         return ($modulus > 0) ? $modulus : self::MODULO;
     }
 }
