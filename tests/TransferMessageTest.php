@@ -108,7 +108,7 @@ class TransferMessageTest extends \PHPUnit_Framework_TestCase
         $transferMessage = new TransferMessage();
 
         try {
-            $transferMessage->setStructuredMessage('abcdefg');
+            $transferMessage->setStructuredMessage('+++000\0119\69897+++');
         } catch (TransferMessageException $e) {
             $previous = $e->getPrevious();
             $this->assertInstanceOf('\InvalidArgumentException', $previous);
