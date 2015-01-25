@@ -56,6 +56,14 @@ $transferMessage->generate();
 echo transferMessage->getStructuredMessage();
 ```
 
+The default, valid circumfix of a structured message is the plus sign. Optionally, it's possible to use asterisks as a circumfix, if your formatting demands it.
+
+``` php
+$transferMessage->setNumber();
+$transferMessage->generate(TransferMessage::CIRCUMFIX_ASTERISK);
+echo transferMessage->getStructuredMessage();
+```
+
 ### Validate a structured message
 
 A valid message
