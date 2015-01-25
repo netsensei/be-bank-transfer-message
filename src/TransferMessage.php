@@ -25,7 +25,7 @@ class TransferMessage
                 $this->number = mt_rand(1, 9999999999);
             } else {
                 if (($number < 1) || ($number > 9999999999)) {
-                    throw new \InvalidArgumentException('The number should be larger then 0 and smaller then 9999999999.');
+                    throw new \InvalidArgumentException('The number should be an integer larger then 0 and smaller then 9999999999.');
                 }
                 $this->number = $number;
            }
@@ -54,7 +54,7 @@ class TransferMessage
         $carry = $this->number % self::MOD_BE_BANK_TRANSFER_MESSAGE;
         $this->carry = ($carry > 0) ? $carry : self::MOD_BE_BANK_TRANSFER_MESSAGE;
 
-        $structuredMessage = str_pad($number, 10, STR_PAD_LEFT) . str_pad($carry, 2, STR_PAD_LEFT);
+        $structuredMessage = str_pad($this->number, 10, STR_PAD_LEFT) . str_pad($carry, 2, STR_PAD_LEFT);
 
         $pattern = array('/^([0-9]{3})([0-9]{4})([0-9]{5})$/');
         $replace = array('+++$1/$2/$3+++');
