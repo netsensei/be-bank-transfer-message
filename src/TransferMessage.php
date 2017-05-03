@@ -72,7 +72,7 @@ class TransferMessage
      *
      * @param int $number The number used to generate a structured message
      *
-     * @throws \TransferMessageException If the number is out of bounds
+     * @throws TransferMessageException If the number is out of bounds
      */
     public function setNumber($number = null)
     {
@@ -116,7 +116,7 @@ class TransferMessage
      *
      * @param string $structuredMessage A structured message
      *
-     * @throws  \TransferMessageException If the format is not valid
+     * @throws  TransferMessageException If the format is not valid
      */
     public function setStructuredMessage($structuredMessage)
     {
