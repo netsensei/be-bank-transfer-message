@@ -157,6 +157,8 @@ class TransferMessage
         $pattern = array('/^([0-9]{3})([0-9]{4})([0-9]{5})$/');
         $replace = array(str_pad('$1/$2/$3', 14, $circumfix, STR_PAD_BOTH));
         $this->structuredMessage = preg_replace($pattern, $replace, $structuredMessage);
+
+        return $this->structuredMessage;
     }
 
     /**
