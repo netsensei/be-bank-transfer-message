@@ -3,8 +3,8 @@
 [![Latest Version](https://img.shields.io/github/release/kouinkouin/be-bank-transfer-message.svg?style=flat-square)](https://github.com/kouinkouin/be-bank-transfer-message/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/kouinkouin/be-bank-transfer-message/master.svg?style=flat-square)](https://travis-ci.org/kouinkouin/be-bank-transfer-message)
-[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/thephpleague/:package_name.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/:package_name/code-structure)
-[![Quality Score](https://img.shields.io/scrutinizer/g/thephpleague/:package_name.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/:package_name)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/kouinkouin/be-bank-transfer-message.svg?style=flat-square)](https://scrutinizer-ci.com/g/kouinkouin/be-bank-transfer-message/code-structure)
+[![Quality Score](https://img.shields.io/scrutinizer/g/kouinkouin/be-bank-transfer-message.svg?style=flat-square)](https://scrutinizer-ci.com/g/kouinkouin/be-bank-transfer-message)
 [![Total Downloads](https://img.shields.io/packagist/dt/kouinkouin/be-bank-transfer-message.svg?style=flat-square)](https://packagist.org/packages/kouinkouin/be-bank-transfer-message)
 
 This package contains a validator and generator for structured messages included in Belgian bank transfers. Common use cases:
