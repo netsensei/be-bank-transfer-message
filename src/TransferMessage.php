@@ -112,7 +112,11 @@ class TransferMessage
     {
         try {
             if (is_null($number)) {
-                $this->number = mt_rand(1, 9999999999);
+                if (version_compare(PHP_VERSION, '7.0.0', '>=')) {
+                    $this->number = random_int(1, 9999999999);
+                } else {
+                    $this->number = mt_rand(1, 9999999999);
+                }
             } else {
                 if (($number < 1) || ($number > 9999999999)) {
                     throw new \InvalidArgumentException(
