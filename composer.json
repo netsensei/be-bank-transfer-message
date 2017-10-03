@@ -1,8 +1,8 @@
 {
-    "name": "kouinkouin/be-bank-transfer-message",
+    "name": "netsensei/be-bank-transfer-message",
     "description": "Generate and validate Belgian bank transfer structured messages",
     "keywords": [
-        "kouinkouin",
+        "netsensei",
         "be-bank-transfer-message",
         "finance",
         "belgium",
@@ -12,12 +12,12 @@
         "order",
         "payment"
     ],
-    "homepage": "https://github.com/kouinkouin/be-bank-transfer-message",
+    "homepage": "https://github.com/netsensei/be-bank-transfer-message",
     "license": "MIT",
     "authors": [
         {
             "name": "Matthias Vandermaesen",
-            "email": "matthias@colada.be",
+            "email": "matthias.vandermaesen@gmail.com",
             "homepage": "http://www.colada.be",
             "role": "lead"
         },
