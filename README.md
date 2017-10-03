@@ -1,11 +1,11 @@
 # BE Bank Transfer Message
 
-[![Latest Version](https://img.shields.io/github/release/kouinkouin/be-bank-transfer-message.svg?style=flat-square)](https://github.com/kouinkouin/be-bank-transfer-message/releases)
+[![Latest Version](https://img.shields.io/github/release/netsensei/be-bank-transfer-message.svg?style=flat-square)](https://github.com/netsensei/be-bank-transfer-message/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/kouinkouin/be-bank-transfer-message/master.svg?style=flat-square)](https://travis-ci.org/kouinkouin/be-bank-transfer-message)
-[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/kouinkouin/be-bank-transfer-message.svg?style=flat-square)](https://scrutinizer-ci.com/g/kouinkouin/be-bank-transfer-message/code-structure)
-[![Quality Score](https://img.shields.io/scrutinizer/g/kouinkouin/be-bank-transfer-message.svg?style=flat-square)](https://scrutinizer-ci.com/g/kouinkouin/be-bank-transfer-message)
-[![Total Downloads](https://img.shields.io/packagist/dt/kouinkouin/be-bank-transfer-message.svg?style=flat-square)](https://packagist.org/packages/kouinkouin/be-bank-transfer-message)
+[![Build Status](https://img.shields.io/travis/netsensei/be-bank-transfer-message/master.svg?style=flat-square)](https://travis-ci.org/netsensei/be-bank-transfer-message)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/netsensei/be-bank-transfer-message.svg?style=flat-square)](https://scrutinizer-ci.com/g/netsensei/be-bank-transfer-message/code-structure)
+[![Quality Score](https://img.shields.io/scrutinizer/g/netsensei/be-bank-transfer-message.svg?style=flat-square)](https://scrutinizer-ci.com/g/netsensei/be-bank-transfer-message)
+[![Total Downloads](https://img.shields.io/packagist/dt/netsensei/be-bank-transfer-message.svg?style=flat-square)](https://packagist.org/packages/netsensei/be-bank-transfer-message)
 
 This package contains a validator and generator for structured messages included in Belgian bank transfers. Common use cases:
 
@@ -19,7 +19,7 @@ The structured message format adheres to the [Febelfin Guidelines](https://www.f
 Via Composer
 
 ``` bash
-$ composer require kouinkouin/be-bank-transfer-message
+$ composer require netsensei/be-bank-transfer-message
 ```
 
 ## Usage
@@ -92,12 +92,12 @@ $ phpunit
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/kouinkouin/be-bank-transfer-message/blob/master/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/netsensei/be-bank-transfer-message/blob/master/CONTRIBUTING.md) for details.
 
 ## Credits
 
 - [Matthias Vandermaesen](https://github.com/Netsensei)
-- [kouinkouin](https://github.com/kouinkouin)
+- [netsensei](https://github.com/netsensei)
 
 ## License
 
