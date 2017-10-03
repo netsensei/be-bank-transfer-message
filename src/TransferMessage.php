@@ -38,7 +38,7 @@ class TransferMessage
     /**
      * A structured message with a valid formatting
      *
-     * @var int
+     * @var string
      */
     private $structuredMessage = null;
 
