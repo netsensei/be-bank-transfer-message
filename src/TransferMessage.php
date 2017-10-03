@@ -1,17 +1,5 @@
 <?php
 
-/**
-* This file is part of the netsensei.bebanktransfermessage library
-*
-* @license http://opensource.org/licenses/MIT
-* @link https://github.com/netsensei/be-bank-transfer-message/
-* @version 1.0.0
-* @package netsensei.bebanktransfermessage
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*/
-
 namespace Netsensei\BeBankTransferMessage;
 
 use Netsensei\BeBankTransferMessage\Exception\TransferMessageException;
@@ -50,7 +38,7 @@ class TransferMessage
     /**
      * A structured message with a valid formatting
      *
-     * @var int
+     * @var string
      */
     private $structuredMessage = null;
 
@@ -66,29 +54,39 @@ class TransferMessage
     }
 
     /**
-     * Set the number
+     * Generate a valid structured message based on the number
      *
-     * If no number is passed to this method, a random number will be generated
+     * @param  string $circumfix The circumfix. Defaults to the plus sign
      *
-     * @param int $number The number used to generate a structured message
-     *
-     * @throws \TransferMessageException If the number is out of bounds
+     * @return string            A valid structured message
      */
-    public function setNumber($number = null)
+    public function generate($circumfix = self::CIRCUMFIX_PLUS)
     {
-        try {
-            if (is_null($number)) {
-                $this->number = mt_rand(1, 9999999999);
-            } else {
-                if (($number < 1) || ($number > 9999999999)) {
-                    throw new \InvalidArgumentException('The number should be an integer larger then 0 and smaller then 9999999999.');
-                }
+        $this->modulus = $this->mod($this->number);
 
-                $this->number = $number;
-            }
-        } catch (\Exception $e) {
-            throw new TransferMessageException('Failed to set number', null, $e);
-        }
+        $structuredMessage = str_pad($this->number, 10, 0, STR_PAD_LEFT).str_pad($this->modulus, 2, 0, STR_PAD_LEFT);
+
+        $pattern = ['/^([0-9]{3})([0-9]{4})([0-9]{5})$/'];
+        $replace = [str_pad('$1/$2/$3', 14, $circumfix, STR_PAD_BOTH)];
+        $this->structuredMessage = preg_replace($pattern, $replace, $structuredMessage);
+
+        return $this->structuredMessage;
+    }
+
+    /**
+     * The mod97 calculation
+     *
+     * If the modulus is 0, the result is substituted to 97
+     *
+     * @param  int $dividend The dividend
+     *
+     * @return int           The modulus
+     */
+    private function mod($dividend)
+    {
+        $modulus = $dividend % self::MODULO;
+
+        return ($modulus > 0) ? $modulus : self::MODULO;
     }
 
     /**
@@ -102,6 +100,38 @@ class TransferMessage
     }
 
     /**
+     * Set the number
+     *
+     * If no number is passed to this method, a random number will be generated
+     *
+     * @param int $number The number used to generate a structured message
+     *
+     * @throws TransferMessageException If the number is out of bounds
+     */
+    public function setNumber($number = null)
+    {
+        try {
+            if (is_null($number)) {
+                if (version_compare(PHP_VERSION, '7.0.0', '>=')) {
+                    $this->number = random_int(1, 9999999999);
+                } else {
+                    $this->number = mt_rand(1, 9999999999);
+                }
+            } else {
+                if (($number < 1) || ($number > 9999999999)) {
+                    throw new \InvalidArgumentException(
+                        'The number should be an integer larger then 0 and smaller then 9999999999.'
+                    );
+                }
+
+                $this->number = $number;
+            }
+        } catch (\Exception $e) {
+            throw new TransferMessageException('Failed to set number', null, $e);
+        }
+    }
+
+    /**
      * Get the modulus
      *
      * @return int The modulus resulting from the modulo operation
@@ -112,11 +142,21 @@ class TransferMessage
     }
 
     /**
+     * Get the structured message
+     *
+     * @return string A valid formatted structured message
+     */
+    public function getStructuredMessage()
+    {
+        return $this->structuredMessage;
+    }
+
+    /**
      * Set a structured message
      *
      * @param string $structuredMessage A structured message
      *
-     * @throws  \TransferMessageException If the format is not valid
+     * @throws  TransferMessageException If the format is not valid
      */
     public function setStructuredMessage($structuredMessage)
     {
@@ -133,33 +173,6 @@ class TransferMessage
     }
 
     /**
-     * Get the structured message
-     *
-     * @return string A valid formatted structured message
-     */
-    public function getStructuredMessage()
-    {
-        return $this->structuredMessage;
-    }
-
-    /**
-     * Generate a valid structured message based on the number
-     *
-     * @param  string $circumfix The circumfix. Defaults to the plus sign
-     * @return string            A valid structured message
-     */
-    public function generate($circumfix = self::CIRCUMFIX_PLUS)
-    {
-        $this->modulus = $this->mod($this->number);
-
-        $structuredMessage = str_pad($this->number, 10, 0, STR_PAD_LEFT).str_pad($this->modulus, 2, 0, STR_PAD_LEFT);
-
-        $pattern = array('/^([0-9]{3})([0-9]{4})([0-9]{5})$/');
-        $replace = array(str_pad('$1/$2/$3', 14, $circumfix, STR_PAD_BOTH));
-        $this->structuredMessage = preg_replace($pattern, $replace, $structuredMessage);
-    }
-
-    /**
      * Validates a structured message
      *
      * The validation is the mod97 calculation of the number and comparison of
@@ -169,28 +182,13 @@ class TransferMessage
      */
     public function validate()
     {
-        $pattern = array('/^[\+\*]{3}([0-9]{3})[\/]?([0-9]{4})[\/]?([0-9]{5})[\+\*]{3}$/');
-        $replace = array('${1}${2}${3}');
+        $pattern = ['/^[\+\*]{3}([0-9]{3})[\/]?([0-9]{4})[\/]?([0-9]{5})[\+\*]{3}$/'];
+        $replace = ['${1}${2}${3}'];
         $rawStructuredMessage = preg_replace($pattern, $replace, $this->structuredMessage);
 
         $number = substr($rawStructuredMessage, 0, 10);
         $modulus = substr($rawStructuredMessage, 10, 2);
 
         return ($modulus == $this->mod($number)) ? true : false;
-    }
-
-    /**
-     * The mod97 calculation
-     *
-     * If the modulus is 0, the result is substituted to 97
-     *
-     * @param  int $dividend The dividend
-     * @return int           The modulus
-     */
-    private function mod($dividend)
-    {
-        $modulus = $dividend % self::MODULO;
-
-        return ($modulus > 0) ? $modulus : self::MODULO;
     }
 }
